@@ -19,8 +19,20 @@ WHERE name LIKE  ?
 `
 );
 
+const get_product = db.prepare(
+  /* sql*/
+  `
+SELECT id, name
+FROM products
+WHERE id = ?
+
+`
+);
+
 const listProducts = () => list_products.all();
 
 const searchProducts = (text) => find_products.all("%" + text + "%");
 
-module.exports = { listProducts, searchProducts };
+const getProduct = (id) => get_product.get(id);
+
+module.exports = { listProducts, searchProducts, getProduct };
